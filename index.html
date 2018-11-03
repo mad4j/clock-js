@@ -50,13 +50,17 @@
 		var targetWidth = 0.75;  // Proportion of full screen width
 		var curFontSize = 20;  // Do not change
 			
+		Number.prototype.pad = function(size) {
+            		var s = String(this);
+            		while (s.length < (size || 2)) { s = "0" + s; }
+            		return s;
+        	}
+
 		function updateClock() {
 			var d = new Date();
-			var s = "";
-			s += (10 > d.getHours  () ? "0" : "") + d.getHours  () + ":";
-			s += (10 > d.getMinutes() ? "0" : "") + d.getMinutes();
+			var s = d.getHours().pad(2) + ":" + d.getMinutes().pad(2);
 			textElem.textContent = s;
-            document.title = s;
+            		document.title = s;
 			setTimeout(updateClock, 60000 - d.getTime() % 60000 + 100);
 		}
 			
